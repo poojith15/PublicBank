@@ -1,0 +1,46 @@
+.menu-section{
+    overflow: hidden;
+    text-align: center;
+    background: #34495e;
+    color:white;
+    padding-top: 80px;
+    min-height: 600px;
+}
+.menu-section h5{
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color:white;
+    padding-top: 10px;
+}
+.menu-options div a{
+    color:white;
+}
+.menu-options div{
+    padding-top: 30px;
+}
+
+.view-section{
+    overflow: hidden;
+    text-align: center;
+    background:silver;
+    padding: 60px;
+    min-height: 600px;
+}
+.view-section-option form div{
+    padding:10px;
+}
+
+
+.user-section{
+    overflow: hidden;
+    text-align: center;
+    background:silver;
+    min-height: 600px;
+}
+.user-section-option div h4{
+    padding-top: 60px;
+}
+.user-section-option div{
+    padding:10px ;
+}
+

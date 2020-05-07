@@ -1,0 +1,125 @@
+<section class="container-fluid mx-auto row col-md-12">
+  
+  <section class="col-md-2 menu-section" >
+    <h5>Transaction Menu</h5>
+    <section class="mx-auto menu-options" *ngIf="adminFlag">
+      <div><a class="nav-link" (click)="showAdminTransactions()">View Transactions</a></div>
+      <div><a class="nav-link" (click)="showCustomTransaction()">Custom Transactions</a></div>
+    </section> 
+    <section class="mx-auto menu-options" *ngIf="userFlag">
+      <div><a class="nav-link" (click)= "showUserTransactions()">View Transactions</a></div>
+      <div><a class="nav-link" (click)="showCustomTransaction()">Custom Transactions</a></div>
+    </section> 
+
+  </section>
+
+
+  <section class="col-md-10 mx-auto view-section">
+
+
+    <section *ngIf="showAdminViewFlag" class="mx-auto p-2 view-section-option">
+      <section class="col-md-6 mx-auto">
+        <h2>TRANSACTIONS</h2>
+
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+    
+        <form #frm2="ngForm" (ngSubmit)="viewAccountTransaction()" >
+          <div class="p-2"><h5>Account ID</h5></div>
+          <div class="p-2"><input type="text" name="aid" [(ngModel)]="accountId" required #aid="ngModel" class="form-control"/></div>
+          <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Account ID is required</div>
+    
+         <div class="mt-2 text-center"><input type="submit" value="Get Transactions" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
+        </form> 
+      </section>
+    </section>
+   
+
+     
+
+      <section *ngIf="showUserViewFlag" class="mx-auto p-2 view-section-option">
+        
+        <h2>TRANSACTIONS</h2>
+
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+        <form #accfrm="ngForm" (ngSubmit)="viewAccountTransaction()">
+          <div>Select AccountID :  </div>
+          <div>
+                <select name="accid" required [(ngModel)]="accountId" #accid="ngModel" class="from-control">
+                    <option value="">--Select Account ID--</option>
+                    <option *ngFor="let acc of accounts" value="{{acc.accountId}}">{{acc.accountId}}</option>
+                </select>
+          </div>
+       
+          <button type="submit" class="btn-success p-1 m-1" [disabled]="!accfrm.valid" >Get Transactions</button>
+        </form>
+      </section>
+
+
+
+      
+
+      
+
+      <section class="mx-auto p-2 view-section-option" *ngIf="showCustomFlag">
+        <h2>TRANSACTIONS</h2>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+         
+        <div class="col-md-5 mx-auto">
+          <form #accfrm="ngForm" (ngSubmit)="viewCustomTransactions()">
+            <div>Select AccountID :  </div>
+            <div *ngIf="userFlag">
+                <select name="accid" required [(ngModel)]="rptFrm.accountId" #accid="ngModel" class="from-control">
+                    <option value="">--Select Account ID--</option>
+                    <option *ngFor="let acc of accounts" value="{{acc.accountId}}">{{acc.accountId}}</option>
+                </select>
+                <div class="alert alert-danger" *ngIf="accid.invalid && accid.touched">Must select account ID</div> 
+            </div>
+            <div *ngIf="adminFlag">
+              <div class="p-2"><input type="text" name="aid" [(ngModel)]="rptFrm.accountId" required #aid="ngModel" class="form-control"/></div>
+              <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Account ID is required</div>
+            </div>
+       
+            <div>From Date :  </div>
+            <div><input type="date" id="frmDt" name="frmDt" class="form-control"  required #frmDt="ngModel" [(ngModel)]="rptFrm.fromDate" /></div>
+            <div class="alert alert-danger" *ngIf="frmDt.invalid && frmDt.touched">Receipent ID is required</div>
+        
+          
+            <div>To Date :  </div>
+            <div><input type="date" id="toDt" name="toDt" class="form-control"  required #toDt="ngModel" [(ngModel)]="rptFrm.toDate" /></div>
+            <div class="alert alert-danger" *ngIf="toDt.invalid && toDt.touched">Amount is required</div>
+         
+            <button type="submit" class="btn-success p-1 m-1" [disabled]="!accfrm.valid" >Get Transactions</button>
+          </form>
+        </div>
+       
+       </section>
+
+
+       <section *ngIf="showTxFlag">
+        <table class="table table-striped table-hover col-md-10 mx-auto mt-3" >
+          <tr style="background-color:#34495e ; color: white;">
+            <th>Transaction ID</th>
+            <th>  Account ID  </th>
+            <th>    Description    </th>
+            <th>Transaction Type</th>
+            <th>  Date  </th>
+            <th>Transaction Amount</th>   
+          </tr>
+          <tr *ngFor ="let txns of listTxn"  style="background-color:white ; color:black">
+            <td>{{txns.transaccountId}}</td>
+            <td>{{txns.account.accountId | uppercase }}</td>
+            <td>{{txns.transDescription | titlecase }}</td>
+            <td>{{txns.transType | uppercase }}</td>
+            <td>{{txns.transDate | date }}</td>
+            <td>{{txns.transAmount | currency: INR}}</td>
+          </tr>
+        </table>
+      </section> 
+    
+  
+    
+  </section>
+
+</section>

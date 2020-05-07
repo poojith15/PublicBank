@@ -1,0 +1,169 @@
+
+
+
+
+
+<!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+<section class="container-fluid mx-auto row col-md-12" *ngIf="adminFlag">
+  
+  <section class="col-md-2 menu-section">
+    <h5>Account Menu</h5>
+    <section class="mx-auto menu-options">
+      <div><a class="nav-link" (click)= "showAddCustomer()">Add Customer</a></div>
+      <div><a class="nav-link" (click)= "showViewCustomer()">View Customer</a></div>
+    </section> 
+  </section>
+
+
+  <section class="col-md-10 mx-auto view-section">
+
+    <section *ngIf="showAddFlag"  class="col-md-6 mx-auto p-2 view-section-option">
+      <h2>ADD CUSTOMER FORM</h2>
+      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+    
+      <form #accfrm="ngForm" (ngSubmit)="addCustomer()">
+        <div><h5>Customer Name</h5></div>
+        <div><input type="text" name="cid" [(ngModel)]="cform.customerName" required #cid="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="cid.invalid && cid.touched">Customer Name is required</div>
+    
+        <div><h5>Password</h5></div>
+        <div><input type="text" name="pwd" [(ngModel)]="cform.password" required #pwd="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="pwd.invalid && pwd.touched">Customer Address is required</div>
+    
+    
+        <div><h5>Customer Address</h5></div>
+        <div><input type="text" name="addr" [(ngModel)]="cform.customerAddress" required #caddr="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="caddr.invalid && caddr.touched">Customer Address is required</div>
+    
+        <div><h5>Customer Aadhar</h5></div>
+        <div><input type="text" name="adhar" [(ngModel)]="cform.customerAadhar" required #adhar="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="adhar.invalid && adhar.touched">Customer AAdhar is required</div>
+    
+        <div><h5>Customer Pan</h5></div>
+        <div><input type="text" name="pan" [(ngModel)]="cform.customerPan" required #pan="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="pan.invalid && pan.touched">Pan No is required</div>
+    
+        <div><h5>Customer Date Of Birth</h5></div>
+        <div><input type="date" name="dob" [(ngModel)]="cform.customerDob" required #dob="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="dob.invalid && dob.touched">DOB is required</div>
+    
+        <div><h5>Gender</h5></div>
+        <div>
+          <select name="gen" required [(ngModel)]= "cform.customerGender" #st="ngModel">
+            <option value="">--select status</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+          </select>
+        </div>
+      
+        <div class="alert alert-danger" *ngIf="bal.invalid && bal.touched">Opening Balance Amount is required</div>
+    
+    
+        <div class="mt-2 text-center"><input type="submit" value="Add Customer" [disabled]="!accfrm.valid" class="btn btn-danger"/></div>
+        </form>
+    </section>
+    
+
+    <!-- ---------------------------------------------------------------------------------------------------------------------- -->
+
+    <section *ngIf="showViewFlag" class="mx-auto p-2 col-md-6 view-section-option">
+      <h2>VIEW CUSTOMER</h2>
+      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+    
+      <form #frm2="ngForm" (ngSubmit)="viewCustomer()">
+        <div>Customer ID</div>
+        <div><input type="text" name="aid" [(ngModel)]="customer_id" required #aid="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Customer ID is required</div>
+    
+        <div class="mt-2 text-center"><input type="submit" value="View Customer" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
+      </form>
+    </section>
+    
+    
+   <!-- ------------------------------------------------------------- -->
+   <section *ngIf="showEditFlag" class="col-md-6 mx-auto p-2 view-section-option">
+    <form #frm3="ngForm" (ngSubmit)="editCustomer(cust)">
+      <div>Customer ID</div>
+      <div> {{cust.customerId}}</div>
+     
+      <div>Customer Name</div>
+      <div>{{cust.customerName}}</div>
+    
+      <div>Customer Address</div>
+      <div> {{cust.customerAddress}} <input type="text" name="addr" [(ngModel)]="cust.customerAddress"/></div>
+     
+      <div>Customer Aadhar</div>
+      <div> {{cust.customerAadhar}}<input type="text" name="aadhar" [(ngModel)]="cust.customerAddress"/></div>
+     
+      <div>Customer Pan</div>
+      <div>{{cust.customerPan}}<input type="text" name="pan" [(ngModel)]="cust.customerPan"/> </div>
+  
+      <div>Customer Contact</div>
+      <div>{{cust.customerContact}}<input type="text" name="contact" [(ngModel)]="cust.customerContact"/> </div>
+  
+      <div>Customer DOB</div>
+      <div class="col-md-4 mx-auto m-2">{{cust.customerPan}}<input type="date" name="date" [(ngModel)]="cust.customerDob"/> </div>
+    
+      <div class="text-center"><input type="submit" value="Edit Customer" [disabled]="!frm3.valid" class="btn btn-danger"/></div>
+    </form>
+  </section>
+    <!-- ------------------------------------------------------------- -->
+   
+    
+
+  </section>
+
+</section>
+
+
+
+
+
+<section class="container-fluid row mx-auto user-section" *ngIf="userFlag">
+  <section class="col-md-1 menu-section">
+  </section>
+
+  
+<section class="col-md-10 mx-auto p-2 view-section-option">
+  <div class="col-md-6 mx-auto m-2">Customer ID</div>
+  <div class="col-md-6 mx-auto m-2"> {{cust.customerId}}</div>
+ 
+  <div class="col-md-6 mx-auto m-2">Customer Name</div>
+  <div class="col-md-6 mx-auto m-2">{{cust.customerName}}</div>
+
+  <div class="col-md-6 mx-auto m-2">Customer Address</div>
+  <div class="col-md-6 mx-auto m-2"> {{cust.customerAddress}}</div>
+ 
+  <div class="col-md-6 mx-auto m-2">Customer Aadhar</div>
+  <div class="col-md-6 mx-auto m-2"> {{cust.customerAadhar}}</div>
+ 
+  <div class="col-md-6 mx-auto m-2">Customer Pan</div>
+  <div class="col-md-6 mx-auto m-2">{{cust.customerPan}}</div>
+
+  <div class="col-md-6 mx-auto m-2">Customer Contact</div>
+  <div class="col-md-6 mx-auto m-2">{{cust.customerContact}}</div>
+
+  <div class="col-md-6 mx-auto m-2">Customer DOB</div>
+  <div class="col-md-6 mx-auto m-2">{{cust.customerPan}}</div>
+</section>
+
+  <section class="col-md-1 menu-section">
+  </section>
+
+</section>
+
+
+

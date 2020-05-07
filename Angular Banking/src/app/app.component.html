@@ -1,0 +1,91 @@
+<section data-spy="scroll" data-target="#navbarResponsive">
+<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand icon mx-auto"  routerLink="contact"><img src="../assets/mainicon3.png"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" routerLink="home">Home</a></li>
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" routerLink="account">Account</a></li>
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" routerLink="customer">Customer</a></li>
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" routerLink="loan">Loan</a></li>
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" routerLink="doTxn">Transfer Fund</a></li>
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" routerLink="contact">About Us</a></li>
+        <li class="nav-item" *ngIf="!loginFlag"><a class="nav-link" (click)="doLogOut()">Log Out</a></li>
+
+
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link" (click)="showLogin()">Home</a></li>
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link" (click)="showLogin()">Account</a></li>
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link" (click)="showLogin()">Customer</a></li>
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link" (click)="showLogin()">Loan</a></li>
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link" (click)="showLogin()">Transfer Fund</a></li>
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link" (click)="showLogin()">About Us</a></li>
+        <li class="nav-item" *ngIf="loginFlag"><a class="nav-link active" (click)="showLogin()">Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+</section>
+
+<section class="container-fluid bg col-md-12" *ngIf="showLoginFlag" >
+
+  <section class="login-box col-md-3" >
+    <div class="alert alert-danger" *ngIf="errorMsg!=undefined">{{errorMsg}}</div>
+    <h2 class="text-center">Login</h2>
+    <form #frm="ngForm" (ngSubmit)="doLogin()">
+      <div>ID</div>
+      <div><input type="text" name="txtid" [(ngModel)]="login.uname" required #bkid="ngModel" class="form-control"/></div>
+      <div class="alert alert-danger" *ngIf="bkid.invalid && bkid.touched">User ID is required</div>
+  
+      <div>Password</div>
+      <div><input type="password" name="txtpwd" [(ngModel)]="login.pwd" required #bkpwd="ngModel" class="form-control"/></div>
+      <div class="alert alert-danger" *ngIf="bkpwd.invalid && bkpwd.touched">Password is required</div>
+      <div class="mt-2 text-center p-2"><input type="submit" value="Login" [disabled]="!frm.valid" class="btn btn-success"/></div>
+    </form>
+  </section>
+  
+</section>
+
+
+<section *ngIf="!showLoginFlag" style="padding-top: 60px;">
+  <router-outlet (activate)="onActivate($event)"></router-outlet>
+</section>
+
+
+<footer>
+  <div class="container-fluid padding">
+    <div class="row text-center">
+      <div class="col-md-4">
+        <a class="logo nav-link" routerLink="contact"><img src="../assets/icon.png">BANKING SYSTEM</a>
+        <hr class="light">
+        <p>555-555-5555</p>
+        <p>bank@bankmail.com</p>
+        <p>98-6 Banks Colony</p>
+        <p>City, State, 088000</p>
+      </div>
+      <div class="col-md-4">
+        <hr class="light">
+        <h5>Our Hours</h5>
+        <hr class="light">
+        <p>Monday: 9am - 06pm</p>
+        <p>Saturday: 10am - 04pm</p>
+        <p>Sunday: closed</p>
+      </div>
+      <div class="col-md-4">
+        <hr class="light">
+        <h5>Our Service Areas</h5>
+        <hr class="light">
+        <p>City, State, 0989879</p>
+        <p>City, State, 0989879</p>
+        <p>City, State, 0989879</p>
+      </div>
+      <div class="col-12">
+        <hr class="light-100">
+        <h5>&copy; PecuniaBank.com</h5>
+      </div>
+    </div>
+  </div>
+</footer>
+

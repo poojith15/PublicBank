@@ -1,0 +1,25 @@
+
+
+<section *ngIf="txnListFlag">
+  
+  <table class="table table-primary table-striped table-hover col-md-10 mx-auto mt-3" >
+    <tr>
+        <th>Transaction ID</th>
+        <th>  Account ID  </th>
+        <th>    Description    </th>
+        <th>Transaction Type</th>
+        <th>  Date  </th>
+        <th>Transaction Amount</th>
+        
+        
+    </tr>
+    <tr *ngFor ="let txns of listTxn">
+        <td>{{txns.transaccountId}}</td>
+        <td>{{txns.account.accountId | uppercase }}</td>
+        <td>{{txns.transDescription | titlecase }}</td>
+        <td>{{txns.transType | uppercase }}</td>
+        <td>{{txns.transDate | date }}</td>
+        <td>{{txns.transAmount | currency: INR}}</td>
+     </tr>
+  </table>
+</section>

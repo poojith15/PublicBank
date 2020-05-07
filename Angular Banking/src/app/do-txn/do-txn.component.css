@@ -1,0 +1,23 @@
+.user-section{
+    overflow: hidden;
+    text-align: center;
+    background:silver;
+    min-height: 600px;
+}
+.user-section-option div h4{
+    padding-top: 20px;
+}
+.user-section-option h2{
+    padding-top: 40px;
+}
+.user-section-option div{
+    padding:10px ;
+}
+.menu-section{
+    overflow: hidden;
+    text-align: center;
+    background: #34495e;
+    color:white;
+    padding-top: 80px;
+    min-height: 600px;
+}

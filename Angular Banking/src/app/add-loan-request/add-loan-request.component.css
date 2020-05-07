@@ -1,0 +1,26 @@
+.menu-section{
+    overflow: hidden;
+    text-align: center;
+    background: #34495e;
+    color:white;
+    padding: 30px;
+    padding-top: 60px;
+    min-height: 600px;
+}
+.menu-section h1{
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    color:white;
+    font-size: 30px;
+}
+.menu-options div a{
+    color:white;
+}
+
+.view-section{
+    overflow: hidden;
+    text-align: center;
+    background:silver;
+    padding: 60px;
+    min-height: 600px;
+}

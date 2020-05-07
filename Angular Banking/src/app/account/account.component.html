@@ -1,0 +1,181 @@
+<section class="container-fluid mx-auto row col-md-12" *ngIf="adminFlag">
+  
+  <section class="col-md-2 menu-section">
+    <h5>Account Menu</h5>
+    <section class="mx-auto menu-options" >
+      <div><a class="nav-link" (click)= "showAddAccount()">Add Account</a></div>
+      <div><a class="nav-link" (click)= "showViewAccount()">View Account</a></div>
+    </section> 
+  </section>
+
+
+  <section class="col-md-10 mx-auto view-section">
+    
+    <section *ngIf="showAddFlag" class="col-md-6 mx-auto p-2 view-section-option">
+      <h2>ADD ACCOUNT FORM</h2>
+      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+    
+      <form #accfrm="ngForm" (ngSubmit)="addAccount()">
+        <div><h5>Customer ID</h5></div>
+        <div><input type="text" name="cid" [(ngModel)]="aform.customerID" required #cid="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="cid.invalid && cid.touched">Customer ID is required</div>
+    
+        <div><h5>Account Name</h5></div>
+        <div>
+          <select name="aname" [(ngModel)]="aform.accountName" #aname="ngModel" required>
+            <option value="">--Select Account Name--</option>
+            <option  value="savings">SAVINGS</option>
+            <option  value="current">CURRENT</option>
+          </select>
+        </div>
+        <div class="alert alert-danger" *ngIf="aname.invalid && aname.touched">Account Name is required</div>
+    
+        <div><h5>Opening Balance Amount</h5></div>
+        <div><input type="number" name="bal" [(ngModel)]="aform.balance" required #bal="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="bal.invalid && bal.touched">Opening Balance Amount is required</div>
+    
+        <div class="mt-2 text-center"><input type="submit" value="Add User" [disabled]="!accfrm.valid" class="btn btn-danger"/></div>
+      </form>
+    </section>
+    
+    <!-- ---------------------------------------------------------------------------------------------------------------------- -->
+    <section *ngIf="showViewFlag" class="mx-auto p-2 col-md-6 view-section-option">
+      
+      <h2>EDIT ACCOUNT FORM</h2>
+
+      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+    
+      <form #frm2="ngForm" (ngSubmit)="viewAccount()" >
+        <div class="p-2"><h5>Account ID</h5></div>
+        <div class="p-2"><input type="text" name="aid" [(ngModel)]="accountId" required #aid="ngModel" class="form-control"/></div>
+        <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Account ID is required</div>
+    
+        <div class="mt-2 text-center"><input type="submit" value="View User" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
+      </form>  
+    </section>
+    <!-- ------------------------------------------------------------- -->
+    <section *ngIf="showEditFlag" class="col-md-6 mx-auto p-2 view-section-option">
+      <h2>EDIT ACCOUNT FORM</h2>
+      <form #frm3="ngForm" (ngSubmit)="editAccount(account)">
+        <div><h5>Account ID</h5></div>
+        <div> {{account.accountId}}</div>
+        <div><h5>Account Name</h5></div>
+        <div> {{account.accountName}}</div>
+        <div><h5>Account Balance</h5></div>
+        <div> {{account.accountBalance}}</div>
+        <div><h5>Account status</h5></div>
+        <div>{{account.accountStatus}} 
+          <select name="status" required [(ngModel)]="account.accountStatus" #st="ngModel">
+            <option value="">--select status</option>
+            <option value="ACTIVE">ACTIVE</option>
+            <option value="INACTIVE">INACTIVE</option>
+          </select>
+        </div>
+        <div class="alert alert-danger" *ngIf="st.invalid && st.touched">Account Status is required</div>  
+    
+    
+        <div class="mt-2 text-center"><input type="submit" value="Edit User" [disabled]="!frm3.valid" class="btn btn-danger"/></div>
+        <div class="mt-2 text-center"><a class="btn btn-primary" (click)="viewTransactions(account.accountId)">Get Transactions</a></div>
+        <div class="mt-2 text-center"><a class="btn btn-primary" (click)="showViewAccount()">Go Back</a></div>
+      </form>
+    </section>
+
+
+    <section *ngIf="showAdminTxFlag">
+      <div class="mt-5"><h2>TRANSACTIONS</h2></div>
+      <table class="table table-striped table-hover col-md-10 mx-auto mt-3" >
+        <tr style="background-color:#34495e ; color: white;">
+          <th>Transaction ID</th>
+          <th>  Account ID  </th>
+          <th>    Description    </th>
+          <th>Transaction Type</th>
+          <th>  Date  </th>
+          <th>Transaction Amount</th>   
+        </tr>
+        <tr *ngFor ="let txns of listTxn"  style="background-color:white ; color:black">
+          <td>{{txns.transaccountId}}</td>
+          <td>{{txns.account.accountId | uppercase }}</td>
+          <td>{{txns.transDescription | titlecase }}</td>
+          <td>{{txns.transType | uppercase }}</td>
+          <td>{{txns.transDate | date }}</td>
+          <td>{{txns.transAmount | currency: INR}}</td>
+        </tr>
+      </table>
+      <a class="btn btn-primary" (click)="goBack()">GO BACK</a>
+      <a class="nav-link" (click)="gotoPassbook()">GET DETAILED TRANSACTIONS</a>
+    </section>
+
+  </section>
+    
+
+</section>
+
+
+
+
+
+<section class="container-fluid row mx-auto user-section" *ngIf="userFlag">
+  <section class="col-md-1 menu-section">
+  </section>
+
+  <section class="col-md-10 mx-auto p-2 user-section-option">
+   
+    <section *ngIf="showDetailsFlag">
+      <div><h4>Hi {{userName | titlecase}}</h4></div>
+      <div><h2>VIEW ACCOUNT DETAILS</h2></div>
+      <table class="table table-striped table-hover col-md-8 mx-auto mt-3" >
+        <tr style="background-color:#34495e ; color: white;">
+          <th>Account ID</th>
+          <th>Account Name</th>
+          <th>Account Status</th>
+          <th>Acount Balance</th>
+          <th>Last Updated</th>
+          <th>View Transactions</th>
+        </tr>
+        <tr *ngFor ="let account of accounts" style="background-color:white ; color:black">
+          <td>{{account.accountId}}</td>
+          <td>{{account.accountName | titlecase}}</td>
+          <td>{{account.accountStatus | uppercase }}</td>
+          <td>{{account.accountBalance | currency:INR}}</td>
+          <td>{{account.lastUpdated }}</td>
+          <td><a class="btn btn-primary" (click)="viewTransactions(account.accountId)">Get Transactions</a></td>
+        </tr>
+      </table>
+    </section>
+
+    <section *ngIf="showUserTxFlag">
+      <div class="mt-5"><h2>TRANSACTIONS</h2></div>
+      <table class="table table-striped table-hover col-md-10 mx-auto mt-3" >
+        <tr style="background-color:#34495e ; color: white;">
+          <th>Transaction ID</th>
+          <th>  Account ID  </th>
+          <th>    Description    </th>
+          <th>Transaction Type</th>
+          <th>  Date  </th>
+          <th>Transaction Amount</th>   
+        </tr>
+        <tr *ngFor ="let txns of listTxn"  style="background-color:white ; color:black">
+          <td>{{txns.transaccountId}}</td>
+          <td>{{txns.account.accountId | uppercase }}</td>
+          <td>{{txns.transDescription | titlecase }}</td>
+          <td>{{txns.transType | uppercase }}</td>
+          <td>{{txns.transDate | date }}</td>
+          <td>{{txns.transAmount | currency: INR}}</td>
+        </tr>
+      </table>
+      <a class="btn btn-primary" (click)="goBack()">GO BACK</a>
+      <a class="nav-link" (click)="gotoPassbook()">GET DETAILED TRANSACTIONS</a>
+    </section>
+
+  </section>
+
+
+  <section class="col-md-1 menu-section">
+  </section>
+
+</section>
+
+
+

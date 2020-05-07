@@ -1,0 +1,19 @@
+<div>Hi {{userName | titlecase}}
+  <table class="table table-primary table-striped table-hover col-md-8 mx-auto mt-3" >
+    <tr>
+        <th>Account ID</th>
+        <th>Account Name</th>
+        <th>Account Status</th>
+        <th>Balance</th>
+        <th>View Txns</th>
+  
+    </tr>
+    <tr *ngFor ="let acc of accounts">
+      
+      <td>{{acc.accountId}}</td>
+      <td>{{ acc.accountName | titlecase}}</td>
+      <td>{{acc.accountStatus |uppercase }}</td>
+       <td>{{acc.accountBalance | currency: INR }}</td>
+       <td><a class="button button-primary" routerLink="viewtxns/{{acc.accountId}}">View TXNS</a></td>
+     </tr>
+  </table>

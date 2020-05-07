@@ -1,0 +1,75 @@
+
+
+
+   <section class="container-fluid row mx-auto user-section">
+    <section class="col-md-1 menu-section">
+    </section>
+  
+    <section class="col-md-10 mx-auto p-2 user-section-option">
+      <h2>TRANSFER FUND</h2>
+
+      <section class="col-md-6 mx-auto" *ngIf="userFlag">
+        <div><h4>Hi {{username | titlecase}}</h4></div>
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+        
+        <div>
+            <form #accfrm="ngForm" (ngSubmit)="TransferFund()">
+                <div>Select AccountID :  </div>
+                <div>
+                      <select name="fromid" required [(ngModel)]="txnFund.fromAccountId" #fromid="ngModel" class="from-control">
+                          <option value="">--Select Account ID--</option>
+                          <option *ngFor="let acc of accounts" value="{{acc.accountId}}">{{acc.accountId}}</option>
+                      </select>
+                        
+                      <!-- <div><input type="text" id="fromId" name="fromId" class="form-control"  required #fromId="ngModel" [(ngModel)]="txnFund.fromAccountId" /></div>
+                      <div class="alert alert-danger" *ngIf="toId.invalid && toId.touched">Receipent ID is required</div> -->
+                </div>
+                <div>Enter Receipent ID :  </div>
+                <div><input type="text" id="toId" name="toId" class="form-control"  required #toId="ngModel" [(ngModel)]="txnFund.toAccountId" /></div>
+                <div class="alert alert-danger" *ngIf="toId.invalid && toId.touched">Receipent ID is required</div>
+         
+           
+                <div>Enter Amount :  </div>
+                <div><input type="number" id="amount" name="amount" class="form-control"  required #amt="ngModel" [(ngModel)]="txnFund.amt" /></div>
+                <div class="alert alert-danger" *ngIf="amt.invalid && amt.touched">Amount is required</div>
+         
+             
+                <button type="submit" class="btn-success p-1 m-1" [disabled]="!accfrm.valid" >Transfer Fund</button>
+            </form>
+        </div>
+      </section>
+      
+
+      <section class="col-md-6 mx-auto" *ngIf="adminFlag">
+        <div>Hi {{username | titlecase}}</div>
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+        
+        <div>
+            <form #accfrm="ngForm" (ngSubmit)="TransferFund()">
+                <div>Enter AccountID :  </div>
+                <div><input type="text" id="fromId" name="fromId" class="form-control"  required #fromId="ngModel" [(ngModel)]="txnFund.fromAccountId" /></div>
+                <div class="alert alert-danger" *ngIf="toId.invalid && toId.touched">Receipent ID is required</div>
+                
+                <div>Enter Receipent ID :  </div>
+                <div><input type="text" id="toId" name="toId" class="form-control"  required #toId="ngModel" [(ngModel)]="txnFund.toAccountId" /></div>
+                <div class="alert alert-danger" *ngIf="toId.invalid && toId.touched">Receipent ID is required</div>
+         
+           
+                <div>Enter Amount :  </div>
+                <div><input type="number" id="amount" name="amount" class="form-control"  required #amt="ngModel" [(ngModel)]="txnFund.amt" /></div>
+                <div class="alert alert-danger" *ngIf="amt.invalid && amt.touched">Amount is required</div>
+         
+             
+                <button type="submit" class="btn-success p-1 m-1" [disabled]="!accfrm.valid" >Transfer Fund</button>
+            </form>
+        </div>
+      </section>
+    </section>
+  
+    <section class="col-md-1 menu-section">
+    </section>
+  
+  </section>
+       
