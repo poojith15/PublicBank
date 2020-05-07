@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.security.auth.login.LoginException;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +31,12 @@ import com.cg.banking.dto.AccReportForm;
 import com.cg.banking.dto.TransferFundForm;
 import com.cg.banking.entity.AccTransaction;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+
 /**************************************************************************************
  *          @author           Poojith
  *          Description       It is a Rest Controller class that provides the suitable
@@ -44,6 +52,9 @@ public class TransactionRestController {
 
 	@Autowired
 	private TransactionService ser;
+	
+	
+	List<AccTransaction> transactions;
 
 	/***********************************************************************************************************
 	 * Method                 :viewTransaction
@@ -65,11 +76,13 @@ public class TransactionRestController {
 	@GetMapping("/getTxn/{accountId}")
 	public List<AccTransaction> viewTransaction(@PathVariable("accountId") String accId, HttpServletRequest request)
 			throws TransactionException, AccountException, LoginException {
-		//if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
+		transactions=null;
+		if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
 			List<AccTransaction> txnList = ser.getTransactions(accId);
+			transactions=txnList;
 			return txnList;
-//		}
-//		throw new LoginException(AccountConstants.PLEASE_LOGIN);
+		}
+		throw new LoginException(AccountConstants.PLEASE_LOGIN);
 	}
 
 	/***********************************************************************************************************
@@ -92,11 +105,14 @@ public class TransactionRestController {
 	@PostMapping("/getTxn")
 	public List<AccTransaction> viewTransaction(@RequestBody AccReportForm form, HttpServletRequest request)
 			throws TransactionException, AccountException, LoginException {
+		transactions=null;
 		if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
 			List<AccTransaction> txnList = ser.getTransactions(form.getAccountId(), form.getFromDate(),
 					form.getToDate());
+			transactions=txnList;
 			return txnList;
 		}
+		
 		throw new LoginException(AccountConstants.PLEASE_LOGIN);
 	}
 
@@ -132,5 +148,68 @@ public class TransactionRestController {
 			throw new AccountException("Account does not exist");
 		}
 
+	}
+	
+	
+	
+	@CrossOrigin
+	@GetMapping("/viewpdf")
+	public void downloadPdf( HttpServletResponse resp) {
+		Document document = new Document();
+	    try
+	    {
+	    	//resp.setHeader("Content-Disposition", "attachement");
+	        PdfWriter writer = PdfWriter.getInstance(document, resp.getOutputStream());
+	        document.open();
+	        document.add(new Paragraph("PUBLIC BANK"));
+	        document.add(new Paragraph("List Of Transactions"));
+	        
+	        PdfPTable table = new PdfPTable(6); // 3 columns.
+	        table.setWidthPercentage(100); //Width 100%
+	        table.setSpacingBefore(10f); //Space before table
+	        table.setSpacingAfter(10f); //Space after table
+	 
+	        //Set Column widths
+	       // float[] columnWidths = {1f, 1f, 1f, 1f};
+	       // table.setWidths(columnWidths);
+	 
+	        PdfPCell cell1 = new PdfPCell(new Paragraph("Txn ID"));
+	        PdfPCell cell2 = new PdfPCell(new Paragraph("Account ID"));
+	        PdfPCell cell3 = new PdfPCell(new Paragraph("Description"));
+	        PdfPCell cell4 = new PdfPCell(new Paragraph("Txn Type")); 
+	        PdfPCell cell5 = new PdfPCell(new Paragraph("Date"));
+	        PdfPCell cell6 = new PdfPCell(new Paragraph("Amount"));
+	        
+	        
+	        table.addCell(cell1);
+	        table.addCell(cell2);
+	        table.addCell(cell3);
+	        table.addCell(cell4);
+	        table.addCell(cell5);
+	        table.addCell(cell6);
+	        for(AccTransaction accTx: transactions) {
+	        	cell1 = new PdfPCell(new Paragraph(accTx.getTransaccountId()+""));
+	        	cell2 = new PdfPCell(new Paragraph(accTx.getAccount().getAccountId()));
+	        	cell3 = new PdfPCell(new Paragraph(accTx.getTransDescription()));
+	        	cell4 = new PdfPCell(new Paragraph(accTx.getTransType()));
+	        	cell5 = new PdfPCell(new Paragraph(accTx.getTransDate().toString()));
+	        	cell6 = new PdfPCell(new Paragraph(accTx.getTransAmount()+""));
+	        	
+	        	
+	        	table.addCell(cell1);
+	            table.addCell(cell2);
+	            table.addCell(cell3);
+	            table.addCell(cell4);
+	            table.addCell(cell5);
+	            table.addCell(cell6);
+	        }
+	        document.add(table);
+	 
+	        document.close();
+	        writer.close();
+	    } catch (Exception e)
+	    {
+	        e.printStackTrace();
+	    }
 	}
 }

@@ -1,15 +1,15 @@
 <section class="container-fluid mx-auto row col-md-12">
   
   <section class="col-md-3 menu-section">
-    <h1>Loan Menu</h1>
+    <h1 class="p-2">Loan Menu</h1>
     <section class="mx-auto menu-options" *ngIf="adminFlag">
-      <div class="p-2"><a class="nav-link" (click)= "showViewLoanRequestStatus()">View Loan Request Status</a></div>
-      <div class="p-2"><a class="nav-link" (click)= " viewNewLoanRequests()">View Loan Requests</a></div>
+      <div class="mt-1"><a class="nav-link" (click)= "showViewLoanRequestStatus()">View Loan Request Status</a></div>
+      <div class="mt-1"><a class="nav-link" (click)= " viewNewLoanRequests()">View Loan Requests</a></div>
     </section>
     
     <section class="mx-auto menu-options" *ngIf="userFlag ||adminFlag">
-      <div class="p-2"><a class="nav-link" (click)= "showAddLoanRequest()">Add Loan Request</a></div>
-      <div class="p-2"><a class="nav-link" (click)= "viewLoanRequestOfCustomer()">My Loan Requests</a></div>
+      <div class="mt-1"><a class="nav-link" (click)= "showAddLoanRequest()">Add Loan Request</a></div>
+      <div class="mt-1"><a class="nav-link" (click)= "viewLoanRequestOfCustomer()">My Loan Requests</a></div>
     </section>
   </section>
 
@@ -17,32 +17,41 @@
   <section class="col-md-9 mx-auto view-section">
 
 
-    <section *ngIf="addLoanRequestFlag"  class="col-md-6 mx-auto p-2">
-      <h2 class="p-2">ADD LOAN REQUEST FORM FORM</h2>
+    <section *ngIf="addLoanRequestFlag"  class="col-md-7 mx-auto p-2 row">
+      <h2 class="col-md-12 mx-auto p-2">ADD LOAN REQUEST</h2>
+      <hr class="col-md-8">
       <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
       
-      <form #loanfrm="ngForm" (ngSubmit)="addLoanRequest()">
-        <div><h5>Loan Amount</h5></div>
-        <div><input type="number" name="amt" [(ngModel)]="aform.loanAmt" required #amt="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="amt.invalid && amt.touched">Loan Amount is required</div>
+      <form #loanfrm="ngForm" (ngSubmit)="addLoanRequest()" class="mx-auto">
+        <div class="col-md-12 mx-auto row p-2">
+          <div class="col-md-6"><h5>Loan Amount</h5></div>
+          <div class="col-md-6"><input type="number" name="amt" [(ngModel)]="aform.loanAmt" required #amt="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="amt.touched && amt.invalid">Loan Amount is required</div>
+        
+        <div class="col-md-12 mx-auto row p-2">
+        <div class="col-md-6"><h5>Tenure</h5></div>
+          <div class="col-md-6"><input type="number" name="tenure" [(ngModel)]="aform.tenure" required #tenure="ngModel" class="form-control"/></div>
+          <div class="alert alert-danger" *ngIf="tenure.invalid && tenure.touched">Loan Amount is required</div>
+        </div>
     
-        <div><h5>Tenure</h5></div>
-        <div><input type="number" name="tenure" [(ngModel)]="aform.tenure" required #tenure="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="tenure.invalid && tenure.touched">Loan Amount is required</div>
-    
-    
-        <div><h5>Loan Type</h5></div>
-        <div>
-          <select name="type" [(ngModel)]="aform.loanType" #type="ngModel" required>
-            <option value="">--Select Loan Type--</option>
-            <option  value="gold">GOLD</option>
-            <option  value="land">LAND</option>
-          </select>
+        <div class="col-md-12 mx-auto row p-2">
+          <div class="col-md-6"><h5>Loan Type</h5></div>
+          <div class="col-md-6">
+            <select name="type" [(ngModel)]="aform.loanType" #type="ngModel" required>
+              <option value="">--Select Loan Type--</option>
+              <option  value="gold">GOLD</option>
+              <option  value="land">LAND</option>
+            </select>
+          </div>
         </div>
         <div class="alert alert-danger" *ngIf="type.invalid && type.touched">Loan Type is required</div>
-    
-        <div><h5>Annual Income</h5></div>
-        <div><input type="number" name="income" [(ngModel)]="aform.annualIncome" required #income="ngModel" class="form-control"/></div>
+        
+        <div class="col-md-12 mx-auto row p-2">
+          <div class="col-md-6"><h5>Annual Income</h5></div>
+          <div class="col-md-6"><input type="number" name="income" [(ngModel)]="aform.annualIncome" required #income="ngModel" class="form-control"/></div>
+        </div>
         <div class="alert alert-danger" *ngIf="income.invalid && income.touched">Annual Income is required</div>
     
         <div class="mt-2 text-center"><input type="submit" value="Add Loan Request" [disabled]="!loanfrm.valid" class="btn btn-danger"/></div>
@@ -53,9 +62,9 @@
 
     <section *ngIf="viewLoanRequestOfCustomerFlag || viewNewLoanRequestsFlag" class="mx-auto p-2">
       <h2 class="p-2" *ngIf="viewLoanRequestOfCustomerFlag">MY LOAN REQUESTS</h2>
-      <h2 class="p-2" *ngIf="viewNewLoanRequestsFlag">VIEW NEW LOAN REQUESTS</h2>
+      <h2 class="p-2" *ngIf="viewNewLoanRequestsFlag">NEW LOAN REQUESTS</h2>
       <div class="p-2"><h4>Hi {{userName | titlecase}}</h4></div>
-      <table class="table table-striped table-hover col-md-10 mx-auto mt-3" >
+      <table class="table table-striped table-hover col-md-11 mx-auto mt-3" >
         <tr style="background-color:#34495e ; color: white;">
             <th>Loan Request ID</th>
             <th>Loan Amount</th>
@@ -75,7 +84,7 @@
             <td>{{loan.dateOfRequest | date }}</td>
             <td>{{loan.annualIncome | currency: INR }}</td>
             <td *ngIf="viewNewLoanRequestsFlag">
-              <a class="btn btn-primary" (click)= "processLoanRequests(loan.loanRequestId)">Accept</a>
+              <a class="btn btn-dark" style="color: white;" (click)= "processLoanRequests(loan.loanRequestId)">Process</a>
             </td>
          </tr>
       </table>
@@ -85,17 +94,21 @@
 
 
 
-    <section *ngIf="viewLoanRequestStatusFlag"  class="mx-auto p-2">
+    <section *ngIf="viewLoanRequestStatusFlag"  class="col-md-10 mx-auto p-2">
 
-      <h2 class="p-2">VIEW LOAN REUQEST STATUS</h2>
+      <h2 class="p-2">LOAN REUQEST STATUS</h2>
+      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
       <section>
-        <div><h5>Enter Loan Request ID</h5></div>
-        <div><input type="text" name="cid" [(ngModel)]="loanReqId" required #cid="ngModel"/></div>
-        <div><a class="btn btn-primary" (click)= "viewLoanRequestStatus()">Get Status</a></div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-4 mx-auto"><h5>Loan Request ID</h5></div>
+          <div class="col-md-4 mx-auto"><input type="text" name="cid" [(ngModel)]="loanReqId" required #cid="ngModel"/></div>
+          <div class="col-md-4 mx-auto"><a class="btn btn-info" style="color: white;" (click)= "viewLoanRequestStatus()">Get Status</a></div>
+        </div>
         <div class="alert alert-danger" *ngIf="cid.invalid && cid.touched">Loan Request ID is required</div>
       </section>
       <section *ngIf="showViewFlag">
-        <table class="table table-striped table-hover col-md-10 mx-auto mt-3" >
+        <table class="table table-striped table-hover col-md-11 mx-auto mt-3" >
           <tr  style="background-color:#34495e ; color: white;">
             <th>Loan Request ID</th>
             <th>Loan Amount</th> 

@@ -46,6 +46,7 @@ public class CustomerRestController {
 	
 	@Value("${imgpath}")
 	private String imgPath;
+	
 
 	/***********************************************************************************************
 	 * Method                 :addCustomer
@@ -91,11 +92,11 @@ public class CustomerRestController {
 	@CrossOrigin
 	@PutMapping("/editCustomer")
 	public AccountMessage editCustomer(@RequestBody Customer cust, HttpServletRequest request) throws LoginException {
-	//	if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
+		if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
 			service.editCustomer(cust);
 			return new AccountMessage(AccountConstants.CUSTOMER_EDITED);
-	//	}
-	//	throw new LoginException(AccountConstants.PLEASE_LOGIN);
+		}
+		throw new LoginException(AccountConstants.PLEASE_LOGIN);
 	}
 	/*********************************************************************************************************
 	 * Method                 :viewCustomer
@@ -115,12 +116,14 @@ public class CustomerRestController {
 	@GetMapping("/viewcustomer/{custid}")
 	public Customer viewCustomer(@PathVariable("custid") String custId, HttpServletRequest request)
 			throws CustomerException, LoginException {
-		//if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
+		if ((boolean) request.getAttribute(AccountConstants.AUTH_FLAG)) {
 			Customer cust = service.viewCustomer(custId);
 			return cust;
-//		}
-//		throw new LoginException(AccountConstants.PLEASE_LOGIN);
+		}
+		throw new LoginException(AccountConstants.PLEASE_LOGIN);
 	}
+	
+	
 	
 	@CrossOrigin
 	@PostMapping("/upload")

@@ -12,27 +12,35 @@
   <section class="col-md-10 mx-auto view-section">
     
     <section *ngIf="showAddFlag" class="col-md-6 mx-auto p-2 view-section-option">
-      <h2>ADD ACCOUNT FORM</h2>
-      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
-      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+      <h2>ADD ACCOUNT</h2>
+      <hr class="col-md-5 mx-auto">
+      
     
       <form #accfrm="ngForm" (ngSubmit)="addAccount()">
-        <div><h5>Customer ID</h5></div>
-        <div><input type="text" name="cid" [(ngModel)]="aform.customerID" required #cid="ngModel" class="form-control"/></div>
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6 mx-auto"><h5>Customer ID</h5></div>
+          <div class="col-md-6 mx-auto"><input type="text" name="cid" [(ngModel)]="aform.customerID" required #cid="ngModel" class="form-control"/></div>
+        </div>
         <div class="alert alert-danger" *ngIf="cid.invalid && cid.touched">Customer ID is required</div>
-    
-        <div><h5>Account Name</h5></div>
-        <div>
-          <select name="aname" [(ngModel)]="aform.accountName" #aname="ngModel" required>
-            <option value="">--Select Account Name--</option>
-            <option  value="savings">SAVINGS</option>
-            <option  value="current">CURRENT</option>
-          </select>
+        
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6 mx-auto"><h5>Account Name</h5></div>
+          <div class="col-md-6 mx-auto">
+            <select name="aname" [(ngModel)]="aform.accountName" #aname="ngModel" required>
+              <option value="">--Select Account Name--</option>
+              <option  value="savings">SAVINGS</option>
+              <option  value="current">CURRENT</option>
+            </select>
+          </div>
         </div>
         <div class="alert alert-danger" *ngIf="aname.invalid && aname.touched">Account Name is required</div>
     
-        <div><h5>Opening Balance Amount</h5></div>
-        <div><input type="number" name="bal" [(ngModel)]="aform.balance" required #bal="ngModel" class="form-control"/></div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6 mx-auto"><h5>Opening Balance Amount</h5></div>
+          <div class="col-md-6 mx-auto"><input type="number" name="bal" [(ngModel)]="aform.balance" required #bal="ngModel" class="form-control"/></div>
+        </div>
         <div class="alert alert-danger" *ngIf="bal.invalid && bal.touched">Opening Balance Amount is required</div>
     
         <div class="mt-2 text-center"><input type="submit" value="Add User" [disabled]="!accfrm.valid" class="btn btn-danger"/></div>
@@ -40,45 +48,76 @@
     </section>
     
     <!-- ---------------------------------------------------------------------------------------------------------------------- -->
-    <section *ngIf="showViewFlag" class="mx-auto p-2 col-md-6 view-section-option">
+    <section *ngIf="showViewFlag" class="mx-auto p-2 col-md-8 view-section-option">
       
-      <h2>EDIT ACCOUNT FORM</h2>
-
-      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <h2>VIEW ACCOUNT</h2>
+      <hr class="col-md-5 mx-auto">
+      
+      <form #frm2="ngForm" (ngSubmit)="viewAccount()" >
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
       <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
     
-      <form #frm2="ngForm" (ngSubmit)="viewAccount()" >
-        <div class="p-2"><h5>Account ID</h5></div>
-        <div class="p-2"><input type="text" name="aid" [(ngModel)]="accountId" required #aid="ngModel" class="form-control"/></div>
+        <div class="col-md-12 row">
+          <div class="col-md-3 my-auto"><h5>Account ID</h5></div>
+          <div class="col-md-5"><input type="text" name="aid" [(ngModel)]="accountId" required #aid="ngModel" class="form-control"/></div>
+          <div class="col-md-3 text-center"><input type="submit" value="View Account" [disabled]="!frm2.valid" class="btn btn-info"/></div>
+        </div>
         <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Account ID is required</div>
-    
-        <div class="mt-2 text-center"><input type="submit" value="View User" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
       </form>  
     </section>
     <!-- ------------------------------------------------------------- -->
     <section *ngIf="showEditFlag" class="col-md-6 mx-auto p-2 view-section-option">
-      <h2>EDIT ACCOUNT FORM</h2>
+      <h2 class="col-md-10 mx-auto">ACCOUNT DETAILS</h2>
+      <hr class="col-md-5 mx-auto">
+   
       <form #frm3="ngForm" (ngSubmit)="editAccount(account)">
-        <div><h5>Account ID</h5></div>
-        <div> {{account.accountId}}</div>
-        <div><h5>Account Name</h5></div>
-        <div> {{account.accountName}}</div>
-        <div><h5>Account Balance</h5></div>
-        <div> {{account.accountBalance}}</div>
-        <div><h5>Account status</h5></div>
-        <div>{{account.accountStatus}} 
-          <select name="status" required [(ngModel)]="account.accountStatus" #st="ngModel">
-            <option value="">--select status</option>
-            <option value="ACTIVE">ACTIVE</option>
-            <option value="INACTIVE">INACTIVE</option>
-          </select>
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6"><h5>Account ID</h5></div>
+          <div class="col-md-6">
+            {{account.accountId}}
+          </div>
+        </div>
+
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6"><h5>Account Name</h5></div>
+          <div class="col-md-6">
+            {{account.accountName}}
+          </div>
+        </div>
+
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6"><h5>Account Balance</h5></div>
+          <div class="col-md-6">
+            {{account.accountBalance}}
+          </div>
+        </div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6"><h5>Account status</h5></div>
+          <div class="col-md-6">
+            {{account.accountStatus}}
+          </div>
+        </div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-6"></div>
+          <div class="col-md-6">
+            <select name="status" required [(ngModel)]="account.accountStatus" #st="ngModel">
+              <option value="">--select status</option>
+              <option value="ACTIVE">ACTIVE</option>
+              <option value="INACTIVE">INACTIVE</option>
+            </select>
+          </div>
         </div>
         <div class="alert alert-danger" *ngIf="st.invalid && st.touched">Account Status is required</div>  
     
-    
-        <div class="mt-2 text-center"><input type="submit" value="Edit User" [disabled]="!frm3.valid" class="btn btn-danger"/></div>
-        <div class="mt-2 text-center"><a class="btn btn-primary" (click)="viewTransactions(account.accountId)">Get Transactions</a></div>
-        <div class="mt-2 text-center"><a class="btn btn-primary" (click)="showViewAccount()">Go Back</a></div>
+        <div class="col-md-12 mx-auto row mt-2">
+          <div class="col-md-1"></div>
+          <div class="col-md-3 text-center"><a class="btn btn-warning" (click)="showViewAccount()">Go Back</a></div>
+          <div class="col-md-3 text-center"><input type="submit" value="Edit Account" [disabled]="!frm3.valid" class="btn btn-danger"/></div>
+          <div class="col-md-5 text-center"><a  class="btn btn-dark" style="color: white;" (click)="viewTransactions(account.accountId)">Transactions</a></div>
+        </div>
+        
       </form>
     </section>
 
@@ -103,8 +142,10 @@
           <td>{{txns.transAmount | currency: INR}}</td>
         </tr>
       </table>
-      <a class="btn btn-primary" (click)="goBack()">GO BACK</a>
-      <a class="nav-link" (click)="gotoPassbook()">GET DETAILED TRANSACTIONS</a>
+      <div class="mx-auto row col-md-12 mt-2">
+      <div class="col-md-5 text-center"><a class="btn btn-warning" (click)="showViewAccount()">Go Back</a></div>
+      <div class="col-md-6 text-center"><a class="btn btn-dark" style="color: white;" (click)="gotoPassbook()">Get Detailed Transactions</a></div>
+      </div>
     </section>
 
   </section>
@@ -140,7 +181,7 @@
           <td>{{account.accountStatus | uppercase }}</td>
           <td>{{account.accountBalance | currency:INR}}</td>
           <td>{{account.lastUpdated }}</td>
-          <td><a class="btn btn-primary" (click)="viewTransactions(account.accountId)">Get Transactions</a></td>
+          <td><a class="btn btn-dark" style="color: white;" (click)="viewTransactions(account.accountId)">Transactions</a></td>
         </tr>
       </table>
     </section>
@@ -165,8 +206,10 @@
           <td>{{txns.transAmount | currency: INR}}</td>
         </tr>
       </table>
-      <a class="btn btn-primary" (click)="goBack()">GO BACK</a>
-      <a class="nav-link" (click)="gotoPassbook()">GET DETAILED TRANSACTIONS</a>
+      <div class="mx-auto row col-md-12 mt-2">
+      <div class="col-md-5 text-center"><a class="btn btn-warning" (click)="goBack()">Go Back</a></div>
+      <div class="col-md-6  text-center"><a  class="btn btn-dark" style="color: white;" (click)="gotoPassbook()">Get Detailed Transactions</a></div>
+    </div>
     </section>
 
   </section>

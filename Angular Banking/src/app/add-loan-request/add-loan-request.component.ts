@@ -60,12 +60,16 @@ export class AddLoanRequestComponent implements OnInit {
     this.addLoanRequestFlag=true;
     this.viewLoanRequestStatusFlag=false;
     this.viewLoanRequestOfCustomerFlag=false;
+    this.msg=undefined;
+    this.errorMsg=undefined;
   }
   showViewLoanRequestStatus(){
     this.viewNewLoanRequestsFlag=false;
     this.addLoanRequestFlag=false;
     this.viewLoanRequestStatusFlag=true;
     this.viewLoanRequestOfCustomerFlag=false;
+    this.msg=undefined;
+    this.errorMsg=undefined;
   }
 
 
@@ -82,6 +86,7 @@ export class AddLoanRequestComponent implements OnInit {
   viewLoanRequestStatus(){
     this.msg=undefined;
     this.errorMsg=undefined;
+    this.addLoanRequest=null;
     this.service.viewLoanRequestStatus(this.loanReqId).subscribe(data=>{this.loanRequest=data; 
                                                                         
                                       this.showViewFlag=true;        

@@ -97,6 +97,18 @@ export class TransactionsComponent implements OnInit {
       error=>{this.errorMsg=JSON.parse(error.error).message;});
       this.showTxFlag=true;
     }
+
+
+    download(){
+            this.txnSer.download().subscribe(data=>{ let blob = new Blob([data], {type: 'application/pdf'});
+      
+            var downloadURL = window.URL.createObjectURL(data);
+            var link = document.createElement('a');
+            link.href = downloadURL;
+            link.download = "transactions.pdf";
+            link.click();}
+        );
+    }
 }
 
 

@@ -3,6 +3,8 @@ import { NgForm } from '@angular/forms';
 import { AccountService } from '../account.service';
 import { CustomerForm } from '../customer-form';
 import { Customer } from '../customer';
+import { TransactionServiceService } from '../transaction-service.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -13,6 +15,7 @@ import { Customer } from '../customer';
 export class CustomerComponent implements OnInit {
 
   cform:CustomerForm = new CustomerForm();
+  
   cust:Customer=new Customer();
   msg:string;
   errorMsg:string;
@@ -24,7 +27,7 @@ export class CustomerComponent implements OnInit {
   userName:string;
   role:string;
   
-  constructor(private service:AccountService){}
+  constructor(private service:AccountService,private txnSer:TransactionServiceService,private router:Router){}
   
   @ViewChild('accfrm')
   form:NgForm;
@@ -64,33 +67,50 @@ export class CustomerComponent implements OnInit {
     this.showAddFlag=true;
     this.showEditFlag=false;
     this.showViewFlag=false;
+    this.msg=undefined;
+    this.errorMsg=undefined;
   }
   
   showViewCustomer(){
     this.showAddFlag=false;
     this.showEditFlag=false;
     this.showViewFlag=true;
+    this.msg=undefined;
+    this.errorMsg=undefined;
   }
 
-  showViewCustomerDetails(){
+  showViewCustomerDetails()
+  {
+    this.msg=undefined;
+    this.errorMsg=undefined;
     this.service.viewCustomer(this.customer_id).subscribe(data=>{ this.cust=data;
                                                                   this.showAddFlag=false;
                                                                   this.showEditFlag=false;
                                                                   this.showViewFlag=false;
           
                                                           },
-                                  error=>{console.log(error); this.errorMsg=error.error.message});
-    
+                                  error=>{console.log(error); this.errorMsg=error.error.message});  
   }
 
 
   
   addCustomer(){
-    this.service.addCustomer(this.cform).subscribe(data=>{this.msg= data.message;this.form.resetForm()},
+    this.msg=undefined;
+    this.errorMsg=undefined;
+    this.service.addCustomer(this.cform).subscribe(data=>{this.msg= data.message;
+                                                            this.form.resetForm()
+      let str=this.msg.split('-')[1];
+      this.txnSer.uploadImage(str,this.Eimg).subscribe(data=>
+                {this.msg=data;this.errorMsg=undefined;this.router.navigateByUrl("/customer");
+                alert("Added Successfully! Your Customer ID :"+str+ ". Please login Again");
+                },error=>{this.errorMsg=error.error.message;this.msg=undefined});
+    },
                                   error=>{console.log(error); this.errorMsg=error.error.message});
   }
   
   viewCustomer(){
+    this.msg=undefined;
+    this.errorMsg=undefined;
     this.service.viewCustomer(this.customer_id).subscribe(data=>{this.cust=data; this.customer_id='';
                                                             this.showAddFlag=false;
                                                             this.showEditFlag=true;
@@ -101,10 +121,26 @@ export class CustomerComponent implements OnInit {
   }
 
   editCustomer(cust:Customer){
-    this.service.editAccount(cust).subscribe(data=>{this.msg= data.message;this.form.resetForm()},
+    this.msg=undefined;
+    this.errorMsg=undefined;
+    this.service.editCustomer(cust).subscribe(data=>{this.msg= data.message;
+
+      this.txnSer.uploadImage(cust.customerId,this.Eimg).subscribe(data=>
+        {this.msg=data;this.errorMsg=undefined;this.router.navigateByUrl("/customer");
+          alert("Edited Successfully Please login Again");
+      },error=>{this.errorMsg=error.error.message;this.msg=undefined});
+    
+                    },
                                   error=>{console.log(error); this.errorMsg=error.error.message});
   }
 
+
+
+  Eimg:File;
+onFileChanged(event:any){
+this.Eimg=event.target.files[0];
+} 
   
+
 
 }

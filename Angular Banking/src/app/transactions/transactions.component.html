@@ -25,10 +25,12 @@
         <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
     
         <form #frm2="ngForm" (ngSubmit)="viewAccountTransaction()" >
-          <div class="p-2"><h5>Account ID</h5></div>
-          <div class="p-2"><input type="text" name="aid" [(ngModel)]="accountId" required #aid="ngModel" class="form-control"/></div>
+          <div>
+            <div class="p-2"><h5>Account ID</h5></div>
+            <div class="p-2"><input type="text" name="aid" [(ngModel)]="accountId" required #aid="ngModel" class="form-control"/></div>
+          </div>
           <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Account ID is required</div>
-    
+            
          <div class="mt-2 text-center"><input type="submit" value="Get Transactions" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
         </form> 
       </section>
@@ -116,6 +118,7 @@
             <td>{{txns.transAmount | currency: INR}}</td>
           </tr>
         </table>
+        <div class="col-md-6 mx-auto text-center"><a class="btn btn-dark" style="color: white;" (click)="download()">Download Transactions</a></div>
       </section> 
     
   

@@ -23,5 +23,9 @@ public static VIEW_LOAN_REQUEST_BY_CUSTID_URL= AccountConstants.SPRING_WEB_URL +
 public static VIEW_LOAN_REQUESTS_URL= AccountConstants.SPRING_WEB_URL +"viewnewloanrequests";
 public static PROCESS_LOAN_REQUEST_URL= AccountConstants.SPRING_WEB_URL +"processLoan";
 
-public static IMG_UPLOAD_URL= AccountConstants.SPRING_WEB_URL +"upload";
+
+public static DOWNLOAD_TRANSACTIONS_URL= AccountConstants.SPRING_WEB_URL +"viewpdf";
+
+public static IMG_UPLOAD_URL= AccountConstants.SPRING_WEB_URL +"upload";
+
 }

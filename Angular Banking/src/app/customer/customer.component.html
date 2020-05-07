@@ -1,20 +1,3 @@
-
-
-
-
-
-<!-- ---------------------------------------------------------------------------------------------------------------------- -->
-
-
-
-
-
-
-
-
-
-
-
 <section class="container-fluid mx-auto row col-md-12" *ngIf="adminFlag">
   
   <section class="col-md-2 menu-section">
@@ -28,98 +11,193 @@
 
   <section class="col-md-10 mx-auto view-section">
 
-    <section *ngIf="showAddFlag"  class="col-md-6 mx-auto p-2 view-section-option">
-      <h2>ADD CUSTOMER FORM</h2>
+    <section *ngIf="showAddFlag"  class="col-md-7 mx-auto p-2 view-section-option" style="background: white; min-height: 500px; margin: 50px;position: relative; ">
+      <h2 style="padding-top: 30px;">ADD CUSTOMER</h2>
+      <hr class="col-md-6" style="height: 7px; background: #34495e;">
       <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
       <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+
+      <div class="col-md-12 mx-auto row p-1">
+        <div class="col-md-6"><h5>Upload Image</h5></div>
+        <div class="col-md-6"><input type="file" name="image" (change)="onFileChanged($event)" required class="form-control"/></div>
+      </div>
     
       <form #accfrm="ngForm" (ngSubmit)="addCustomer()">
-        <div><h5>Customer Name</h5></div>
-        <div><input type="text" name="cid" [(ngModel)]="cform.customerName" required #cid="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="cid.invalid && cid.touched">Customer Name is required</div>
-    
-        <div><h5>Password</h5></div>
-        <div><input type="text" name="pwd" [(ngModel)]="cform.password" required #pwd="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="pwd.invalid && pwd.touched">Customer Address is required</div>
-    
-    
-        <div><h5>Customer Address</h5></div>
-        <div><input type="text" name="addr" [(ngModel)]="cform.customerAddress" required #caddr="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="caddr.invalid && caddr.touched">Customer Address is required</div>
-    
-        <div><h5>Customer Aadhar</h5></div>
-        <div><input type="text" name="adhar" [(ngModel)]="cform.customerAadhar" required #adhar="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="adhar.invalid && adhar.touched">Customer AAdhar is required</div>
-    
-        <div><h5>Customer Pan</h5></div>
-        <div><input type="text" name="pan" [(ngModel)]="cform.customerPan" required #pan="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="pan.invalid && pan.touched">Pan No is required</div>
-    
-        <div><h5>Customer Date Of Birth</h5></div>
-        <div><input type="date" name="dob" [(ngModel)]="cform.customerDob" required #dob="ngModel" class="form-control"/></div>
-        <div class="alert alert-danger" *ngIf="dob.invalid && dob.touched">DOB is required</div>
-    
-        <div><h5>Gender</h5></div>
-        <div>
-          <select name="gen" required [(ngModel)]= "cform.customerGender" #st="ngModel">
-            <option value="">--select status</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-          </select>
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Name</h5></div>
+          <div class="col-md-6 mx-auto"><input type="text" name="cid" [(ngModel)]="cform.customerName" required #cid="ngModel" class="form-control"/></div>
         </div>
-      
-        <div class="alert alert-danger" *ngIf="bal.invalid && bal.touched">Opening Balance Amount is required</div>
+        <div class="alert alert-danger"  *ngIf="cid.invalid && cid.touched">Name is Required</div>
+
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Role</h5></div>
+          <div class="col-md-6 mx-auto">
+            <select name="role" required [(ngModel)]= "cform.role" #role="ngModel" class="col-md-12">
+              <option value="">--select Role--</option>
+              <option value="admin">ADMIN</option>
+              <option value="user">USER</option>
+            </select>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="role.invalid && role.touched">Role is required</div>
+        
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Password</h5></div>
+          <div class="col-md-6 mx-auto"><input type="password" name="pwd" [(ngModel)]="cform.password" required #pwd="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="pwd.invalid && pwd.touched">Password is required</div>
+    
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Contact</h5></div>
+          <div class="col-md-6 mx-auto"><input type="number" name="contact" [(ngModel)]="cform.customerContact" required #contact="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="contact.invalid && contact.touched">Contact is required</div>
+
+
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Address</h5></div>
+          <div  class="col-md-6 mx-auto"><input type="text" name="addr" [(ngModel)]="cform.customerAddress" required #caddr="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="caddr.invalid && caddr.touched">Customer Address is required</div>
+        
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Aadhar ID</h5></div>
+          <div class="col-md-6 mx-auto"><input type="number" name="adhar" [(ngModel)]="cform.customerAadhar" required #adhar="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="adhar.invalid && adhar.touched">Customer Aadhar is required</div>
+        
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Pan ID</h5></div>
+          <div class="col-md-6 mx-auto"><input type="text" name="pan" [(ngModel)]="cform.customerPan" required #pan="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="pan.invalid && pan.touched">Pan No is required</div>
+        
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Date Of Birth</h5></div>
+          <div class="col-md-6 mx-auto"><input type="date" name="dob" [(ngModel)]="cform.customerDob" required #dob="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="dob.invalid && dob.touched">DOB is required</div>
+        
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Gender</h5></div>
+          <div class="col-md-6 mx-auto">
+            <select name="gen" required [(ngModel)]= "cform.customerGender" #gen="ngModel" class="col-md-12">
+              <option value="">--select status</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Others">Others</option>
+            </select>
+          </div>
+        </div>
+        <div class="alert alert-danger" *ngIf="gen.invalid && gen.touched">Gender is required</div>
     
     
-        <div class="mt-2 text-center"><input type="submit" value="Add Customer" [disabled]="!accfrm.valid" class="btn btn-danger"/></div>
+        <div class="col-md-12 mx-auto row p-1">
+          <div class="col-md-6 mx-auto"><h5>Branch Code</h5></div>
+          <div class="col-md-6 mx-auto"><input type="text" name="branch" [(ngModel)]="cform.branchCode" required #branch="ngModel" class="form-control"/></div>
+        </div>
+        <div class="alert alert-danger" *ngIf="branch.invalid && branch.touched">Branch Code is required</div>
+
+        
+
+        <div class="mt-2 text-center"><input type="submit" value="Add Customer" [disabled]="!accfrm.valid" class="btn btn-danger" style="margin-bottom: 40px;"/></div>
         </form>
     </section>
     
 
     <!-- ---------------------------------------------------------------------------------------------------------------------- -->
 
-    <section *ngIf="showViewFlag" class="mx-auto p-2 col-md-6 view-section-option">
+    <section *ngIf="showViewFlag" class="mx-auto p-2 col-md-8 view-section-option">
       <h2>VIEW CUSTOMER</h2>
+      <hr class="col-md-5"  style="height: 7px; background: #34495e;">
       <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
       <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
     
       <form #frm2="ngForm" (ngSubmit)="viewCustomer()">
-        <div>Customer ID</div>
-        <div><input type="text" name="aid" [(ngModel)]="customer_id" required #aid="ngModel" class="form-control"/></div>
+        <div class="col-md-12 mx-auto row">
+          <div class="col-md-3 mx-auto">Customer ID</div>
+          <div class="col-md-5 mx-auto"><input type="text" name="aid" [(ngModel)]="customer_id" required #aid="ngModel" class="form-control"/></div>
+          <div class="col-md-3 text-center mx-auto"><input type="submit" value="Search" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
+        </div>
         <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Customer ID is required</div>
-    
-        <div class="mt-2 text-center"><input type="submit" value="View Customer" [disabled]="!frm2.valid" class="btn btn-danger"/></div>
       </form>
     </section>
     
     
    <!-- ------------------------------------------------------------- -->
-   <section *ngIf="showEditFlag" class="col-md-6 mx-auto p-2 view-section-option">
-    <form #frm3="ngForm" (ngSubmit)="editCustomer(cust)">
-      <div>Customer ID</div>
-      <div> {{cust.customerId}}</div>
-     
-      <div>Customer Name</div>
-      <div>{{cust.customerName}}</div>
-    
-      <div>Customer Address</div>
-      <div> {{cust.customerAddress}} <input type="text" name="addr" [(ngModel)]="cust.customerAddress"/></div>
-     
-      <div>Customer Aadhar</div>
-      <div> {{cust.customerAadhar}}<input type="text" name="aadhar" [(ngModel)]="cust.customerAddress"/></div>
-     
-      <div>Customer Pan</div>
-      <div>{{cust.customerPan}}<input type="text" name="pan" [(ngModel)]="cust.customerPan"/> </div>
+    <section *ngIf="showEditFlag" class="col-md-8 mx-auto p-2 view-section-option" >
   
-      <div>Customer Contact</div>
-      <div>{{cust.customerContact}}<input type="text" name="contact" [(ngModel)]="cust.customerContact"/> </div>
-  
-      <div>Customer DOB</div>
-      <div class="col-md-4 mx-auto m-2">{{cust.customerPan}}<input type="date" name="date" [(ngModel)]="cust.customerDob"/> </div>
-    
-      <div class="text-center"><input type="submit" value="Edit Customer" [disabled]="!frm3.valid" class="btn btn-danger"/></div>
-    </form>
-  </section>
+      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+     
+      <section class="col-md-10 mx-auto" style="background: white; min-height: 500px; margin: 130px;position: relative; ">
+        <h2 style="padding-top: 60px;">EDIT CUSTOMER</h2>
+        <hr class="col-md-5" style="height: 7px; background: #34495e;">
+        <form #frm3="ngForm" (ngSubmit)="editCustomer(cust)">
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Customer ID</h5></div>
+            <div class="col-md-6 mx-auto"> {{cust.customerId}}</div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5> Name</h5></div>
+            <div class="col-md-6 mx-auto">{{cust.customerName}}</div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Role</h5></div>
+            <div class="col-md-6 mx-auto">{{cust.role}}</div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Address</h5></div>
+            <div class="col-md-6 mx-auto"><input type="text" name="addr" [(ngModel)]="cust.customerAddress"/></div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Aadhar ID</h5></div>
+            <div class="col-md-6 mx-auto"> {{cust.customerAadhar}}</div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Pan ID</h5></div>
+            <div class="col-md-6 mx-auto">{{cust.customerPan}}</div>
+          </div>  
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Contact</h5></div>
+            <div class="col-md-6 mx-auto"> <input type="text" name="contact" [(ngModel)]="cust.customerContact"/> </div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Date Of Birth</h5></div>
+            <div class="col-md-6 mx-auto"><input type="date" name="date" [(ngModel)]="cust.customerDob"/> </div>
+          </div>
+      
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6 mx-auto"><h5>Branch Code</h5></div>
+            <div class="col-md-6 mx-auto">{{cust.branch.branchId}}</div>
+          </div>
+
+          <div class="col-md-12 mx-auto row p-1">
+            <div class="col-md-6"><h5>Upload Image</h5></div>
+            <div class="col-md-6"><input type="file" name="image" (change)="onFileChanged($event)" required class="form-control"/></div>
+          </div>
+
+          <div style="position: absolute; border-radius: 50%; left: 215px; top: -70px;">
+            <img src="../assets/images/{{cust.customerId}}.jpg" onerror="this.src='../assets/images/202057134826.jpg';" alt="Missing Image" style="height: 100px; width: 100px; border-radius: 50%; border-style: solid;" />
+          </div>
+         
+
+          <div style="margin-top: 40px;"><input type="submit" value="Edit" [disabled]="!frm3.valid" class="btn btn-danger" style="margin-bottom: 30px;"/></div>
+        </form>
+        <section style="margin-top: 50px;"></section>
+      </section>
+      
+      
+      
+      
+    </section>
     <!-- ------------------------------------------------------------- -->
    
     
@@ -136,34 +214,70 @@
   <section class="col-md-1 menu-section">
   </section>
 
-  
-<section class="col-md-10 mx-auto p-2 view-section-option">
-  <div class="col-md-6 mx-auto m-2">Customer ID</div>
-  <div class="col-md-6 mx-auto m-2"> {{cust.customerId}}</div>
- 
-  <div class="col-md-6 mx-auto m-2">Customer Name</div>
-  <div class="col-md-6 mx-auto m-2">{{cust.customerName}}</div>
+  <section class="col-md-10 mx-auto p-2 view-section-option row" >
+    
+    <section class="col-md-5 mx-auto" style="background: white; height: 500px; margin: 130px; position: relative; ">
+      <h2 style="margin-top: 60px;">MY PROFILE</h2>
+      <hr class="col-md-5" style="height: 7px; background: #34495e;">
+    
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Customer ID</h5></div>
+        <div class="col-md-6 mx-auto"> {{cust.customerId}}</div>
+      </div>
 
-  <div class="col-md-6 mx-auto m-2">Customer Address</div>
-  <div class="col-md-6 mx-auto m-2"> {{cust.customerAddress}}</div>
- 
-  <div class="col-md-6 mx-auto m-2">Customer Aadhar</div>
-  <div class="col-md-6 mx-auto m-2"> {{cust.customerAadhar}}</div>
- 
-  <div class="col-md-6 mx-auto m-2">Customer Pan</div>
-  <div class="col-md-6 mx-auto m-2">{{cust.customerPan}}</div>
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Customer Name</h5></div>
+        <div class="col-md-6 mx-auto">{{cust.customerName}}</div>
+      </div>
 
-  <div class="col-md-6 mx-auto m-2">Customer Contact</div>
-  <div class="col-md-6 mx-auto m-2">{{cust.customerContact}}</div>
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Role</h5></div>
+        <div class="col-md-6 mx-auto">{{cust.role}}</div>
+      </div>
 
-  <div class="col-md-6 mx-auto m-2">Customer DOB</div>
-  <div class="col-md-6 mx-auto m-2">{{cust.customerPan}}</div>
-</section>
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Address</h5></div>
+        <div class="col-md-6 mx-auto"> {{cust.customerAddress}}</div>
+      </div>
 
-  <section class="col-md-1 menu-section">
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Aadhar ID</h5></div>
+        <div class="col-md-6 mx-auto"> {{cust.customerAadhar}}</div>
+      </div>
+
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Pan ID</h5></div>
+        <div class="col-md-6 mx-auto">{{cust.customerPan}}</div>
+      </div>  
+
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Contact</h5></div>
+        <div class="col-md-6 mx-auto">{{cust.customerContact}}</div>
+      </div>
+
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Date Of Birth</h5></div>
+        <div class="col-md-6 mx-auto">{{cust.customerDob}}</div>
+      </div>
+
+      <div class="col-md-12 mx-auto row">
+        <div class="col-md-6 mx-auto"><h5>Branch Code</h5></div>
+        <div class="col-md-6 mx-auto">{{cust.branch.branchId}}</div>
+      </div>
+    </section>
+    
+    <div style="position: absolute; border-radius: 50%; left: 460px; margin-top: 60px;">
+      <img src="../assets/images/{{cust.customerId}}.jpg" onerror="this.src='../assets/images/202057134826.jpg';" alt="Missing Image" style="height: 100px; width: 100px; border-radius: 50%; border-style: solid;" />
+    </div>
+    
+    <section class="col-md-1 menu-section">
+    </section>
   </section>
 
 </section>
+
+
+
 
 
 

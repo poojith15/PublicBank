@@ -33,8 +33,9 @@ export class AppComponent {
       this.router.navigateByUrl("/home");
       this.showLoginFlag=false;
       this.loginFlag=false;
+      this.errorMsg=undefined;
     },
-    error=>{console.log(error);this.login.pwd="";this.errorMsg=JSON.parse(error.error).message}); 
+    error=>{console.log(error);this.login.pwd="";this.errorMsg=JSON.parse(error.error).message;this.msg=undefined;}); 
 
     //this.router.navigateByUrl("/home");
     //  this.showLoginFlag=false;
@@ -48,6 +49,8 @@ export class AppComponent {
       this.showLoginFlag=true;
      this.loginFlag=true;
       this.token=undefined;
+      this.msg=undefined;
+      this.errorMsg=undefined;
      });
  
      // alert("You have logged out");
@@ -55,7 +58,9 @@ export class AppComponent {
      // this.showLoginFlag=true;
      // this.loginFlag=true;
   }
-  onActivate(event){
+
+
+  onActivate(event) {
     window.scroll(0,0);
   }
 }

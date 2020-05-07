@@ -6,6 +6,7 @@ import { AccountConstants } from './account-constants';
 import { AccountForm } from './account-form';
 
 import { CustomerForm } from './customer-form';
+import { Customer } from './customer';
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,7 @@ export class AccountService {
     const httpHeaders=new HttpHeaders({"userId":utoken});
     return this.http.post(AccountConstants.ADD_CUSTOMER_URL,form,{headers:httpHeaders});
   }
-  public editCustomer(cust:any):Observable<any>{
+  public editCustomer(cust:Customer):Observable<any>{
     let utoken=localStorage.getItem("token");
     if(utoken==null)utoken="";
     const httpHeaders=new HttpHeaders({"userId":utoken});

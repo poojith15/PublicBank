@@ -16,7 +16,7 @@
     color:white;
 }
 .menu-options div{
-    padding-top: 30px;
+    padding-top: 10px;
 }
 
 .view-section{
@@ -43,4 +43,7 @@
 .user-section-option div{
     padding:10px ;
 }
-
+hr{
+    height: 6px;
+    background: #34495e;
+}

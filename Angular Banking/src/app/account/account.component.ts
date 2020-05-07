@@ -71,20 +71,28 @@ export class AccountComponent implements OnInit {
     this.showAddFlag=true;
     this.showEditFlag=false;
     this.showViewFlag=false;
+    this.errorMsg=undefined;
+    this.msg=undefined;
 
   }
   showViewAccount(){
     this.showAddFlag=false;
     this.showEditFlag=false;
     this.showViewFlag=true;
+    this.errorMsg=undefined;
+    this.msg=undefined;
   }
 
   addAccount(){
+    this.errorMsg=undefined;
+    this.msg=undefined;
     this.service.addAccount(this.aform).subscribe(data=>{this.msg= data.message;this.form.resetForm()},
                                   error=>{console.log(error); this.errorMsg=error.error.message});
   }
 
   viewAccount(){
+    this.errorMsg=undefined;
+    this.msg=undefined;
     this.service.viewAccount(this.accountId).subscribe(data=>{this.account=data; this.accountId='';
             this.showAddFlag=false;
             this.showEditFlag=true;
@@ -95,12 +103,16 @@ export class AccountComponent implements OnInit {
   }
 
   editAccount(account:any){
-    this.service.editAccount(this.account).subscribe(data=>{this.msg= data.message;this.form.resetForm()},
+    this.errorMsg=undefined;
+    this.msg=undefined;
+    this.service.editAccount(this.account).subscribe(data=>{this.msg= data.message;},
             error=>{console.log(error); this.errorMsg=error.error.message});
   }
 
 
   viewTransactions(accountId:string){
+    this.errorMsg=undefined;
+    this.msg=undefined;
     this.txnSer.getNoTxn(accountId).subscribe(data=>{
                                                       this.listTxn=data;
                                                       this.errorMsg=undefined;

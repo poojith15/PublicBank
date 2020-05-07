@@ -52,13 +52,21 @@ userName:string;
     let utoken=localStorage.getItem("token");
     if(utoken==null)utoken="";
     const httpHeaders=new HttpHeaders({"userId":utoken});
-    return this.http.get(AccountConstants.LOGOUT_URL,{headers:httpHeaders,responseType:'text'});
+    return this.http.get(AccountConstants.LOGOUT_URL,{headers:httpHeaders,responseType:'text'})
   }
 
-  public uploadImage(custId:string,custImg:File){
-    let postData=new FormData();
-    postData.append('txtCustId',custId);
-    postData.append('txtFile',custImg);
-    return this.http.post(AccountConstants.IMG_UPLOAD_URL,postData,{responseType:'text'});
-  }
+
+  public download():Observable<any>{
+    let utoken=localStorage.getItem("token");
+    if(utoken==null)utoken="";
+    const httpHeaders=new HttpHeaders({"userId":utoken});
+        return this.http.get(AccountConstants.DOWNLOAD_TRANSACTIONS_URL,{headers:httpHeaders,responseType:'blob' as'json'});
+      } 
+
+    public uploadImage(custId:string,custImg:File){
+          let postData=new FormData();
+          postData.append('txtCustId',custId);
+          postData.append('txtFile',custImg);
+          return this.http.post(AccountConstants.IMG_UPLOAD_URL,postData,{responseType:'text'});
+        }
 }
