@@ -133,10 +133,13 @@ export class AccountComponent implements OnInit {
       if(this.role=="admin"){
         this.showEditFlag=true;
         this.showAdminTxFlag=false;
+        this.showDetailsFlag=false;
+        this.showUserTxFlag=false;
      }
      else{
       this.showUserTxFlag=false;
       this.showDetailsFlag=true;
+    
      }
       
     }

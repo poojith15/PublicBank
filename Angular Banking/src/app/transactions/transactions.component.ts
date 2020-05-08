@@ -88,8 +88,8 @@ export class TransactionsComponent implements OnInit {
         this.showTxFlag=true;
   }
 
-  viewCustomTransactions(){
-    this.listTxn=[];
+  viewCustomTransactions()
+  {
     this.txnSer.getTxn(this.rptFrm).subscribe(data=>{
                                 this.listTxn=data;
                                 this.errorMsg=undefined;

@@ -64,9 +64,12 @@ userName:string;
       } 
 
     public uploadImage(custId:string,custImg:File){
+      let utoken=localStorage.getItem("token");
+      if(utoken==null)utoken="";
+      const httpHeaders=new HttpHeaders({"userId":utoken});
           let postData=new FormData();
           postData.append('txtCustId',custId);
           postData.append('txtFile',custImg);
-          return this.http.post(AccountConstants.IMG_UPLOAD_URL,postData,{responseType:'text'});
+          return this.http.post(AccountConstants.IMG_UPLOAD_URL,postData,{headers:httpHeaders,responseType:'text'});
         }
 }

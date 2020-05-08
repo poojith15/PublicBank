@@ -23,35 +23,35 @@
     <span class="name">Account</span>
     <span class="border"></span>
     <p>
-      his first volume begins with Eiseley’s debut collection, which displays his far-reaching knowledge and boundless curiosity about the mysteries of the natural world. Here are vivid accounts of prehistoric ecosystems, the origins of consciousness, the search for “living fossils” at the bottom of the sea, and the complexities of our evolutionary inheritance. Here too are literary qualities and aspirations that led many to hail Eiseley as a “modern Thoreau”: his quest for the ultimate meanings and cosmological significance of natural phenomena, along with his immense expressive gifts. 
+      Account contains the record of customer to manage the financial needs. If Customer has account then they can transfer the money from their account to another account. Customer can have multiple accounts. Account can be created by two steps. Firstly, there should be a user (Customer).If there is no user (Customer) then account cannot be created. To create account, you need to fill the Account Form containing of four essential information such as Customer ID, Balance and choose account type between Savings and Current accordingly. Account ID will be created automatically.
     </p>
   </div>
   <div class="section" id="p2" name="p2" *ngIf="showP2Flag">
     <span class="name">Customer</span>
     <span class="border"></span>
     <p>
-      The Firmament of Time (1960), a lyrical and meditative tour de force, looks back at the many ways in which the sciences have been shaped by the changing cultures in which they developed. Examining the role of metaphor in scientific thought, anticipations of scientific discoveries in the works of poets and novelists, and the “unconscious conformity” of scientific theory to prevailing orthodoxies, Eiseley argues provocatively for the ongoing relevance to scientific progress of dreams, the imagination, and the irrational.
+      Customer is just a user, they can access the online banking. Until unless they have the account, other functionalities cannot be accessible. Only one and that is loan request. It can be two different loans. If the loan request is accepted, then loan account will be automatically created. There is no need to fill the form. In Customer one more feature is user can add the profile picture so that he can confirm that the their login was correct. In customer the details of Aadhar number, Pan number and contact number will be unique so user should enter the correct details.
     </p>
   </div>
   <div class="section" id="p3" name="p3" *ngIf="showP3Flag">
     <span class="name">Loan</span>
     <span class="border"></span>
     <p>
-      In his wide-ranging collection The Unexpected Universe (1969), Eiseley turns to the theme of the voyage of discovery: accounts of the mythical and historic journeys of Odysseus, Captain Cook, and Darwin frame his own more modest wanderings in the environs of Philadelphia. Sometimes he travels no farther than the local dump: and yet, like Homer’s hero or these great explorers, he continually finds a universe “not only queerer than we suppose, but queerer than we can suppose.” 
+      Loan Services is used to apply the loan request. user can apply if they have only the customer or additionally an account. If the loan request is accepted then the loan account will be automatically generated. There is a restriction that one customer can have only one loan account. So if any loan requests are applied then they are automatically rejected. User can take a look at the loan requests that user has requested. Processing loan will be performed by the admin by viewing all the loan requests. During the processing  loan, the details are checked strictly and approve the loan if user eligible.
     </p>
   </div>
   <div class="section" id="p4" name="p4" *ngIf="showP4Flag">
     <span class="name">Transfer Fund</span>
     <span class="border"></span>
     <p>
-      LIBRARY OF AMERICA is an independent nonprofit cultural organization founded in 1979 to preserve our nation’s literary heritage by publishing, and keeping permanently in print, America’s best and most significant writing. The Library of America series includes more than 300 volumes to date, authoritative editions that average 1,000 pages in length, feature cloth covers, sewn bindings, and ribbon markers, and are printed on premium acid-free paper that will last for centuries.
+      Transfer Fund will help us to transfer valid money from one account to another account. It will be transferred immediately after Account Holder click the transfer fund button. There will be no delay for the transfer fund. There are three essentials that need to fill. Firstly, From Account ID must be specified and next To Account ID must be filled. Lastly, amount that account holder choose to transfer. Date will be automatically recorded. For user, account id will be suggested automatic in the From Account ID section.
     </p>
   </div>
   <div class="section" id="p5" name="p5" *ngIf="showP5Flag">
-    <span class="name">PassBook</span>
+    <span class="name">Passbook</span>
     <span class="border"></span>
     <p>
-      LIBRARY OF AMERICA is an independent nonprofit cultural organization founded in 1979 to preserve our nation’s literary heritage by publishing, and keeping permanently in print, America’s best and most significant writing. The Library of America series includes more than 300 volumes to date, authoritative editions that average 1,000 pages in length, feature cloth covers, sewn bindings, and ribbon markers, and are printed on premium acid-free paper that will last for centuries.
+      Passbook is be used for the viewing transactions in two ways. Firstly, user can view the resent transactions upto 20. This functionality will be visible in the account details directly and the user can download the recent transactions as a PDF with the name of transactions. Secondly, user can view detailed transactions in the date ranges. It will be display all the transactions from the date user selected to the date user choose and also download them having the total details about the transactions. Transaction ID will be automatically generated.
     </p>
   </div>
 </div>

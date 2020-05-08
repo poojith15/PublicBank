@@ -60,7 +60,7 @@ export class CustomerComponent implements OnInit {
   showEditFlag=false;
   showViewFlag=false;
   showAddFlag=false;
-  
+  showDetails=true;
   
   
   showAddCustomer(){
@@ -69,6 +69,7 @@ export class CustomerComponent implements OnInit {
     this.showViewFlag=false;
     this.msg=undefined;
     this.errorMsg=undefined;
+    this.showDetails=false;
   }
   
   showViewCustomer(){
@@ -77,7 +78,9 @@ export class CustomerComponent implements OnInit {
     this.showViewFlag=true;
     this.msg=undefined;
     this.errorMsg=undefined;
+    this.showDetails=false;
   }
+
 
   showViewCustomerDetails()
   {

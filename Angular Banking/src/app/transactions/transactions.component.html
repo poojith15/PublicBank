@@ -45,17 +45,21 @@
 
         <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
         <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
-        <form #accfrm="ngForm" (ngSubmit)="viewAccountTransaction()">
-          <div>Select AccountID :  </div>
-          <div>
-                <select name="accid" required [(ngModel)]="accountId" #accid="ngModel" class="from-control">
+        <form #accfrm="ngForm" (ngSubmit)="viewAccountTransaction()" class="col-md-9 mx-auto">
+          <div class="col-md-12 mx-auto row">
+            <div class="col-md-4 mx-auto">Select AccountID :  </div>
+            <div class="col-md-4 mx-auto">
+                <select name="accid" required [(ngModel)]="accountId" #accid="ngModel" class="form-control">
                     <option value="">--Select Account ID--</option>
                     <option *ngFor="let acc of accounts" value="{{acc.accountId}}">{{acc.accountId}}</option>
                 </select>
+            </div>
+            <div class="col-md-4 mx-auto">
+              <button type="submit" class="btn-info" [disabled]="!accfrm.valid" >Get Transactions</button>
+            </div>
           </div>
-       
-          <button type="submit" class="btn-success p-1 m-1" [disabled]="!accfrm.valid" >Get Transactions</button>
         </form>
+        
       </section>
 
 
@@ -68,31 +72,38 @@
         <h2>TRANSACTIONS</h2>
         <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
          
-        <div class="col-md-5 mx-auto">
-          <form #accfrm="ngForm" (ngSubmit)="viewCustomTransactions()">
-            <div>Select AccountID :  </div>
-            <div *ngIf="userFlag">
-                <select name="accid" required [(ngModel)]="rptFrm.accountId" #accid="ngModel" class="from-control">
+        <div class="col-md-7 mx-auto">
+          <form #acc2frm="ngForm" (ngSubmit)="viewCustomTransactions()">
+
+            <div class="col-md-12 mx-auto row">
+              <div class="col-md-6 mx-auto my-auto">Select AccountID :  </div>
+              <div class="col-md-6 mx-auto" *ngIf="userFlag">
+                <select name="acc_id"  [(ngModel)]="rptFrm.accountId" #acc_id="ngModel" required  class="form-control">
                     <option value="">--Select Account ID--</option>
                     <option *ngFor="let acc of accounts" value="{{acc.accountId}}">{{acc.accountId}}</option>
                 </select>
-                <div class="alert alert-danger" *ngIf="accid.invalid && accid.touched">Must select account ID</div> 
+              </div>
+              
+              <div class="col-md-6 mx-auto" *ngIf="adminFlag">
+                <div class="p-2"><input type="text" name="aid" [(ngModel)]="rptFrm.accountId" required #aid="ngModel" class="form-control"/></div>
+                
+              </div>
             </div>
-            <div *ngIf="adminFlag">
-              <div class="p-2"><input type="text" name="aid" [(ngModel)]="rptFrm.accountId" required #aid="ngModel" class="form-control"/></div>
-              <div class="alert alert-danger" *ngIf="aid.invalid && aid.touched">Account ID is required</div>
+
+
+            <div class="col-md-12 mx-auto row">
+              <div class="col-md-6 mx-auto">From Date :  </div>
+              <div class="col-md-6 mx-auto"><input type="date" id="frmDt" name="frmDt" class="form-control"  required #frmDt="ngModel" [(ngModel)]="rptFrm.fromDate" /></div>
             </div>
-       
-            <div>From Date :  </div>
-            <div><input type="date" id="frmDt" name="frmDt" class="form-control"  required #frmDt="ngModel" [(ngModel)]="rptFrm.fromDate" /></div>
             <div class="alert alert-danger" *ngIf="frmDt.invalid && frmDt.touched">Receipent ID is required</div>
         
-          
-            <div>To Date :  </div>
-            <div><input type="date" id="toDt" name="toDt" class="form-control"  required #toDt="ngModel" [(ngModel)]="rptFrm.toDate" /></div>
+            <div class="col-md-12 mx-auto row">
+              <div class="col-md-6 mx-auto">To Date :  </div>
+              <div class="col-md-6 mx-auto"><input type="date" id="toDt" name="toDt" class="form-control"  required #toDt="ngModel" [(ngModel)]="rptFrm.toDate" /></div>
+            </div>
             <div class="alert alert-danger" *ngIf="toDt.invalid && toDt.touched">Amount is required</div>
          
-            <button type="submit" class="btn-success p-1 m-1" [disabled]="!accfrm.valid" >Get Transactions</button>
+            <button type="submit" class="btn-success p-1 m-1" [disabled]="!acc2frm.valid" >Get Transactions</button>
           </form>
         </div>
        

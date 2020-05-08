@@ -111,6 +111,10 @@ export class AddLoanRequestComponent implements OnInit {
   viewNewLoanRequests(){
     this.msg=undefined;
     this.errorMsg=undefined;
+    this.viewNewLoanRequestsFlag=true;
+                                            this.addLoanRequestFlag=false;
+                                            this.viewLoanRequestStatusFlag=false;
+                                            this.viewLoanRequestOfCustomerFlag=false;
     this.service.viewLoanRequests().subscribe(data=>{this.loanRequests=data;
                                             this.viewNewLoanRequestsFlag=true;
                                             this.addLoanRequestFlag=false;
@@ -129,6 +133,8 @@ export class AddLoanRequestComponent implements OnInit {
   }
 
   resetMenu(){
+    this.msg=undefined;
+    this.errorMsg=undefined;
     this.viewNewLoanRequestsFlag=false;
     this.addLoanRequestFlag=false;
     this.viewLoanRequestStatusFlag=false;

@@ -18,17 +18,19 @@
 
 
     <section *ngIf="addLoanRequestFlag"  class="col-md-7 mx-auto p-2 row">
-      <h2 class="col-md-12 mx-auto p-2">ADD LOAN REQUEST</h2>
-      <hr class="col-md-8">
-      <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
-      <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
       
-      <form #loanfrm="ngForm" (ngSubmit)="addLoanRequest()" class="mx-auto">
+      
+      
+      <form #loanfrm="ngForm" (ngSubmit)="addLoanRequest()" class="mx-auto" style="background: white; min-height: 500px; margin: 50px;position: relative; ">
+        <div class="alert alert-success" *ngIf="msg != undefined">{{msg}}</div>
+        <div class="alert alert-danger" *ngIf="errorMsg != undefined">{{errorMsg}}</div>
+        <h2 class="col-md-12 mx-auto mt-5">ADD LOAN REQUEST</h2>
+        <hr class="col-md-6" style="background: #34495e; height: 7px; ">
         <div class="col-md-12 mx-auto row p-2">
           <div class="col-md-6"><h5>Loan Amount</h5></div>
           <div class="col-md-6"><input type="number" name="amt" [(ngModel)]="aform.loanAmt" required #amt="ngModel" class="form-control"/></div>
         </div>
-        <div class="alert alert-danger" *ngIf="amt.touched && amt.invalid">Loan Amount is required</div>
+        <div class=" col-md-12 alert alert-danger" *ngIf="amt.touched && amt.invalid">Loan Amount is required</div>
         
         <div class="col-md-12 mx-auto row p-2">
         <div class="col-md-6"><h5>Tenure</h5></div>
@@ -54,7 +56,7 @@
         </div>
         <div class="alert alert-danger" *ngIf="income.invalid && income.touched">Annual Income is required</div>
     
-        <div class="mt-2 text-center"><input type="submit" value="Add Loan Request" [disabled]="!loanfrm.valid" class="btn btn-danger"/></div>
+        <div class="m-2 text-center"><input type="submit" value="Add Loan Request" [disabled]="!loanfrm.valid" class="btn btn-danger"/></div>
       </form>
     </section>
 
